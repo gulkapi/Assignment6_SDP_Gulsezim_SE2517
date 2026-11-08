@@ -1,0 +1,16 @@
+@startuml
+actor User
+participant "Main" as Main
+participant "root: Directory" as Root
+participant "src: Directory" as Src
+participant "file: SourceCodeFile" as File
+participant "statistics: ProjectStatisticsVisitor" as Visitor
+User -> Main : main()
+Main -> Root : accept(statistics)
+Root -> Visitor : visit(root)
+Visitor -> Src : accept(this)
+Src -> Visitor : visit(src)
+Visitor -> File : accept(this)
+File -> Visitor : visit(file)
+Visitor -> Visitor : update counters
+@enduml
